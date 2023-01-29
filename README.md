@@ -6,7 +6,9 @@ This is an extension for [stable-diffusion-webui](https://github.com/AUTOMATIC11
 
 ## Examples
 
-<pre>
+Make *a cat* to *a dragon*.
+
+```
 Setting:
   Sampling method: DPM++ 2M Karras
   Sampling steps: 15
@@ -15,13 +17,13 @@ Setting:
   Seed: 1
 
 Original:
-  Prompt:   close up of a cute girl holing a <mark>cat</mark> in flower garden, insanely excess frilled white dress, small tiara
+  Prompt:   close up of a cute girl holing a cat in flower garden, insanely excess frilled white dress, small tiara
   Negative: (low quality, worst quality:1.4)
 
 Prompt-to-prompt:
-  Prompt:   close up of a cute girl holing a <mark>dragon</mark> in flower garden, insanely excess frilled white dress, small tiara
+  Prompt:   close up of a cute girl holing a dragon in flower garden, insanely excess frilled white dress, small tiara
   Negative: (low quality, worst quality:1.4)
-</pre>
+```
 
 - Original output:
 
