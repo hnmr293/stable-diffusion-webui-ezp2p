@@ -5,7 +5,6 @@ from torch import nn, Tensor
 from ldm.modules.attention import SpatialTransformer, BasicTransformerBlock, CrossAttention, MemoryEfficientCrossAttention # type: ignore
 from modules.processing import process_images, fix_seed, Processed, StableDiffusionProcessing
 from modules import scripts
-from modules.ui_components import ToolButton
 from scripts.ezp2plib.sdhook import SDHook
 
 NAME = "EzP2P"
