@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Callable
+from typing import Union, Any, Callable
 
 from torch import nn
 from torch.utils.hooks import RemovableHandle
@@ -33,7 +33,7 @@ class SDHook:
     
     def __init__(self, enabled: bool):
         self._enabled = enabled
-        self._handles: list[RemovableHandle|ForwardHook] = []
+        self._handles: list[Union[RemovableHandle,ForwardHook]] = []
     
     @property
     def enabled(self):
@@ -70,9 +70,9 @@ class SDHook:
         
         wrapper = getattr(p.sd_model, "model", None)
         
-        unet: nn.Module|None = getattr(wrapper, "diffusion_model", None) if wrapper is not None else None
-        vae: nn.Module|None = getattr(p.sd_model, "first_stage_model", None)
-        clip: nn.Module|None = getattr(p.sd_model, "cond_stage_model", None)
+        unet: Union[nn.Module,None] = getattr(wrapper, "diffusion_model", None) if wrapper is not None else None
+        vae: Union[nn.Module,None] = getattr(p.sd_model, "first_stage_model", None)
+        clip: Union[nn.Module,None] = getattr(p.sd_model, "cond_stage_model", None)
         
         assert unet is not None, "p.sd_model.diffusion_model is not found. broken model???"
         self._do_hook(p, p.sd_model, unet=unet, vae=vae, clip=clip) # type: ignore
@@ -85,9 +85,9 @@ class SDHook:
         self,
         p: StableDiffusionProcessing,
         model: Any,
-        unet: nn.Module|None,
-        vae: nn.Module|None,
-        clip: nn.Module|None
+        unet: Union[nn.Module,None],
+        vae: Union[nn.Module,None],
+        clip: Union[nn.Module,None]
     ):
         assert model is not None, "empty model???"
         
@@ -123,7 +123,7 @@ class SDHook:
 
     def hook_layer(
         self,
-        module: nn.Module|Any,
+        module: Union[nn.Module,Any],
         fn: Callable[..., None]
     ):
         if not self.enabled:
@@ -135,7 +135,7 @@ class SDHook:
 
     def hook_layer_pre(
         self,
-        module: nn.Module|Any,
+        module: Union[nn.Module,Any],
         fn: Callable[..., None]
     ):
         if not self.enabled:
@@ -147,7 +147,7 @@ class SDHook:
 
     def hook_forward(
         self,
-        module: nn.Module|Any,
+        module: Union[nn.Module,Any],
         fn: Callable[..., Any]
     ):
         assert module is not None

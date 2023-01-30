@@ -1,3 +1,4 @@
+from typing import Union
 import gradio as gr
 
 import torch
@@ -17,7 +18,7 @@ class SDGlobalExit(RuntimeError):
 
 class ContextExtractor(SDHook):
     
-    context: Tensor|None
+    context: Union[Tensor,None]
     
     def __init__(self, enabled):
         super().__init__(enabled)
